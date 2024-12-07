@@ -29,14 +29,14 @@ def home():
 async def get_vehicles(db: Session = Depends(get_db)):
     return crud.get_vehicles(db)
 
-@app.get("vehicles/bikes", response_model=List[schemas.Bike])
+@app.get("/vehicles/bikes", response_model=List[schemas.Bike])
 async def home(db: Session = Depends(get_db)):
     return crud.get_bikes(db)
 
-@app.get("vehicles/cars", response_model=List[schemas.Car])
+@app.get("/vehicles/cars", response_model=List[schemas.Car])
 async def home(db: Session = Depends(get_db)):
     return crud.get_cars(db)
 
-@app.get("vehicles/spaceships", response_model=List[schemas.Spaceship])
+@app.get("/vehicles/spaceships", response_model=List[schemas.Spaceship])
 async def home(db: Session = Depends(get_db)):
     return crud.get_spaceships(db)
