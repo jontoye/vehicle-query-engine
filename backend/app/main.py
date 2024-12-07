@@ -10,6 +10,7 @@ import crud
 import models
 from database import engine, get_db
 from fastapi import Depends, FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from schemas import (
     BikeFilters,
     BikeResponse,
@@ -23,6 +24,10 @@ from schemas import (
 from sqlalchemy.orm import Session
 
 app = FastAPI()
+
+origins = os.environ.get("ALLOW_ORIGINS", "").split(",")
+
+app.add_middleware(CORSMiddleware, allow_origins=origins)
 
 if os.environ.get("ENV") == "development":
     # models.Base.metadata.drop_all(bind=engine)
