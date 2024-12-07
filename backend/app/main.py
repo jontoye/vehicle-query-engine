@@ -4,7 +4,11 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+from typing import List
+
+import crud
 import models
+import schemas
 from database import engine, get_db
 from fastapi import Depends, FastAPI
 from sqlalchemy import text
@@ -21,9 +25,18 @@ if os.environ.get("ENV") == "development":
 def home():
     return {"message": "Hello VQE!"}
 
+@app.get("/vehicles", response_model=List[schemas.Vehicle])
+async def get_vehicles(db: Session = Depends(get_db)):
+    return crud.get_vehicles(db)
 
-@app.get("/test-db")
-async def test_db(db: Session = Depends(get_db)):
-    stmt = text("SELECT 'Hello postgres!'")
-    result = db.execute(stmt)
-    return {"message": result.scalar()}
+@app.get("vehicles/bikes", response_model=List[schemas.Bike])
+async def home(db: Session = Depends(get_db)):
+    return crud.get_bikes(db)
+
+@app.get("vehicles/cars", response_model=List[schemas.Car])
+async def home(db: Session = Depends(get_db)):
+    return crud.get_cars(db)
+
+@app.get("vehicles/spaceships", response_model=List[schemas.Spaceship])
+async def home(db: Session = Depends(get_db)):
+    return crud.get_spaceships(db)

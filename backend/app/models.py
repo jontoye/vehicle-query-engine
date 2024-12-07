@@ -46,6 +46,7 @@ class Car(Base):
         Integer, ForeignKey("vehicles.id"), index=True
     )
     colour: Mapped[str] = mapped_column(String, nullable=False, index=True)
+    engine_size: Mapped[float] = mapped_column(Float, nullable=False, index=True)
     horsepower: Mapped[int] = mapped_column(Integer, nullable=False, index=True)
     make: Mapped[str] = mapped_column(String, nullable=False, index=True)
     seats: Mapped[int] = mapped_column(Integer, nullable=False, index=True)
