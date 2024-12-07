@@ -26,7 +26,6 @@ def seed_data():
                     year=bike["year"],
                     brand=bike["brand"],
                     gears=bike["gears"],
-                    # type=BikeType[bike["type"]].value,
                     type=BikeType[bike["type"].upper()],
                     wheel_size=bike["wheel_size"],
                 )
