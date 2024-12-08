@@ -30,6 +30,7 @@ class VehicleBase(BaseModel):
 class VehicleResponse(VehicleBase):
     id: int
     vehicle_type: VehicleType
+    vehicle_type_id: int
 
 
 class VehicleCreate(VehicleBase):

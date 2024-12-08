@@ -39,13 +39,26 @@ def get_vehicles(
 
     query = apply_sort_order(query, sort_order, sort_column)
 
-    return query.offset(offset).limit(limit).all()
+    vehicles = query.offset(offset).limit(limit).all()
+
+    # Add the related vehicle id to each item in the response
+    for vehicle in vehicles:
+        if vehicle.related_vehicle:
+            vehicle.vehicle_type_id = vehicle.related_vehicle.id
+        else:
+            vehicle.vehicle_type_id = None
+
+    return vehicles
 
 
 def get_vehicle(db: Session, id: int):
     vehicle = db.get(models.Vehicle, id)
     if vehicle is None:
         raise HTTPException(status_code=404, detail="Vehicle not found")
+    
+    # Add the related vehicle id to response
+    vehicle.vehicle_type_id = vehicle.related_vehicle.id
+    
     return vehicle
 
 
@@ -151,6 +164,13 @@ def get_spaceships(
 
 def get_spaceship(db: Session, id: int):
     spaceship = db.get(models.Spaceship, id)
+    if spaceship is None:
+        raise HTTPException(status_code=404, detail="Spaceship not found")
+    return spaceship
+
+
+def get_spaceship_by_vehicle_id(db: Session, vehicle_id: int):
+    spaceship = db.query(models.Spaceship).filter(models.Spaceship.vehicle_id == vehicle_id).first()
     if spaceship is None:
         raise HTTPException(status_code=404, detail="Spaceship not found")
     return spaceship

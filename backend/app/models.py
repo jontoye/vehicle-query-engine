@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Optional
 
 from database import Base
 from enums import BikeType, VehicleType
@@ -21,6 +21,16 @@ class Vehicle(Base):
     spaceships: Mapped[List["Spaceship"]] = relationship(
         "Spaceship", back_populates="vehicle"
     )
+    
+    @property
+    def related_vehicle(self):
+        if self.vehicle_type == VehicleType.BIKE:
+            return self.bikes[0] if self.bikes else None
+        elif self.vehicle_type == VehicleType.CAR:
+            return self.cars[0] if self.cars else None
+        elif self.vehicle_type == VehicleType.SPACESHIP:
+            return self.spaceships[0] if self.spaceships else None
+        return None
 
 
 class Bike(Base):

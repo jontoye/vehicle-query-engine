@@ -128,14 +128,17 @@ export const ViewAll = () => {
           (data.data.length === 0 ? (
             <ListEmpy />
           ) : (
-            data.data.map((vehicle) => (
-              <Link key={vehicle.id} to={`/vechiles/${vehicle.id}`}>
-                <ListItem
-                  title={`${vehicle.year} ${vehicle.model}`}
-                  type={vehicle.vehicle_type.toLowerCase() as VehicleType}
-                />
-              </Link>
-            ))
+            data.data.map((vehicle) => {
+              const vehiclePath = vehicle.vehicle_type.toLowerCase() + "s"; // ex. car => cars
+              return (
+                <Link key={vehicle.id} to={`/${vehiclePath}/${vehicle.vehicle_type_id}`}>
+                  <ListItem
+                    title={`${vehicle.year} ${vehicle.model}`}
+                    type={vehicle.vehicle_type.toLowerCase() as VehicleType}
+                  />
+                </Link>
+              );
+            })
           ))}
       </div>
     </div>

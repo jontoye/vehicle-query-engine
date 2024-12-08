@@ -42,6 +42,7 @@ interface Vehicle {
   model: string;
   year: number;
   vehicle_type: string;
+  vehicle_type_id: number;
 }
 
 interface Bike {

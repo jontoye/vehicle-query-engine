@@ -9,6 +9,7 @@ import { DEFAULT_RESULT_LIMIT, NUM_RESULTS_OPTIONS, SEAT_OPTIONS, YEAR_OPTIONS }
 import { filterUndefined } from "../lib/utils";
 import { ListSkeleton } from "../components/ListSkeleton";
 import { ListEmpy } from "../components/ListEmpy";
+import { SidebarNav } from "../components/SidebarNav";
 
 export const Cars = () => {
   const [seatFilter, setSeatFilter] = useState<string>();
@@ -68,14 +69,14 @@ export const Cars = () => {
 
   const handleLimitChange = (value: string) => {
     setLimit(value);
-  }
+  };
 
   const handleClearFilters = () => {
     setSeatFilter(undefined);
     setMinYear(undefined);
     setMaxYear(undefined);
     setExactYear(undefined);
-    setLimit(DEFAULT_RESULT_LIMIT)
+    setLimit(DEFAULT_RESULT_LIMIT);
   };
 
   const handleApplyFilter = () => {
@@ -110,31 +111,35 @@ export const Cars = () => {
     if (limit) {
       searchParams.set("limit", limit);
     } else {
-      searchParams.delete("limit")
+      searchParams.delete("limit");
     }
 
     setSearchParams(searchParams);
   };
-  
+
   return (
     <div className='flex w-full gap-4'>
-      <Card className='sticky w-64 top-8 h-fit'>
-        <CardHeader>
-          <CardTitle>Filters</CardTitle>
-        </CardHeader>
-        <CardContent className='flex flex-col gap-4'>
-          <Dropdown label='Seats' value={seatFilter} options={SEAT_OPTIONS} onChange={handleSeatFilterChange} />
-          <Dropdown label='Min Year' value={minYear} options={YEAR_OPTIONS} onChange={handleMinYearChange} />
-          <Dropdown label='Max Year' value={maxYear} options={YEAR_OPTIONS} onChange={handleMaxYearChange} />
-          <Dropdown label='Exact Year' value={exactYear} options={YEAR_OPTIONS} onChange={handleExactYearChange} />
-          <Dropdown label='Num Results' value={limit} options={NUM_RESULTS_OPTIONS} onChange={handleLimitChange} />
+      <div className='flex flex-col w-64 gap-2'>
+        <Card>
+          <CardHeader>
+            <CardTitle>Filters</CardTitle>
+          </CardHeader>
+          <CardContent className='flex flex-col gap-4'>
+            <Dropdown label='Seats' value={seatFilter} options={SEAT_OPTIONS} onChange={handleSeatFilterChange} />
+            <Dropdown label='Min Year' value={minYear} options={YEAR_OPTIONS} onChange={handleMinYearChange} />
+            <Dropdown label='Max Year' value={maxYear} options={YEAR_OPTIONS} onChange={handleMaxYearChange} />
+            <Dropdown label='Exact Year' value={exactYear} options={YEAR_OPTIONS} onChange={handleExactYearChange} />
+            <Dropdown label='Num Results' value={limit} options={NUM_RESULTS_OPTIONS} onChange={handleLimitChange} />
 
-          <Button onClick={handleApplyFilter}>Apply</Button>
-          <Button variant='outline' onClick={handleClearFilters}>
-            Reset
-          </Button>
-        </CardContent>
-      </Card>
+            <Button onClick={handleApplyFilter}>Apply</Button>
+            <Button variant='outline' onClick={handleClearFilters}>
+              Reset
+            </Button>
+          </CardContent>
+        </Card>
+
+        <SidebarNav />
+      </div>
       <div className='flex flex-col flex-1 w-full gap-4'>
         {status === "pending" && <ListSkeleton />}
 

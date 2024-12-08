@@ -7,8 +7,15 @@ import { ListSkeleton } from "../components/ListSkeleton";
 import { Button } from "../components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "../components/ui/card";
 import { useBikes } from "../hooks/useBikes";
-import { BIKE_TYPE_OPTIONS, DEFAULT_RESULT_LIMIT, GEARS_OPTIONS, NUM_RESULTS_OPTIONS, YEAR_OPTIONS } from "../lib/constants";
+import {
+  BIKE_TYPE_OPTIONS,
+  DEFAULT_RESULT_LIMIT,
+  GEARS_OPTIONS,
+  NUM_RESULTS_OPTIONS,
+  YEAR_OPTIONS,
+} from "../lib/constants";
 import { filterUndefined } from "../lib/utils";
+import { SidebarNav } from "../components/SidebarNav";
 
 export const Bikes = () => {
   const [gears, setGears] = useState<string>();
@@ -72,7 +79,7 @@ export const Bikes = () => {
 
   const handleLimitChange = (value: string) => {
     setLimit(value);
-  }
+  };
 
   const handleClearFilters = () => {
     setGears(undefined);
@@ -80,7 +87,7 @@ export const Bikes = () => {
     setMinYear(undefined);
     setMaxYear(undefined);
     setExactYear(undefined);
-    setLimit(DEFAULT_RESULT_LIMIT)
+    setLimit(DEFAULT_RESULT_LIMIT);
   };
 
   const handleApplyFilter = () => {
@@ -89,7 +96,7 @@ export const Bikes = () => {
     } else {
       searchParams.delete("gears");
     }
-    
+
     if (bikeType) {
       searchParams.set("type", bikeType);
     } else {
@@ -121,32 +128,36 @@ export const Bikes = () => {
     if (limit) {
       searchParams.set("limit", limit);
     } else {
-      searchParams.delete("limit")
+      searchParams.delete("limit");
     }
 
     setSearchParams(searchParams);
   };
-  
+
   return (
     <div className='flex w-full gap-4'>
-      <Card className='sticky w-64 top-8 h-fit'>
-        <CardHeader>
-          <CardTitle>Filters</CardTitle>
-        </CardHeader>
-        <CardContent className='flex flex-col gap-4'>
-          <Dropdown label='Type' value={bikeType} options={BIKE_TYPE_OPTIONS} onChange={handleBikeTypeChange} />
-          <Dropdown label='Gears' value={gears} options={GEARS_OPTIONS} onChange={handleGearsFilterChange} />
-          <Dropdown label='Min Year' value={minYear} options={YEAR_OPTIONS} onChange={handleMinYearChange} />
-          <Dropdown label='Max Year' value={maxYear} options={YEAR_OPTIONS} onChange={handleMaxYearChange} />
-          <Dropdown label='Exact Year' value={exactYear} options={YEAR_OPTIONS} onChange={handleExactYearChange} />
-          <Dropdown label='Num Results' value={limit} options={NUM_RESULTS_OPTIONS} onChange={handleLimitChange} />
+      <div className='flex flex-col w-64 gap-2'>
+        <Card>
+          <CardHeader>
+            <CardTitle>Filters</CardTitle>
+          </CardHeader>
+          <CardContent className='flex flex-col gap-4'>
+            <Dropdown label='Type' value={bikeType} options={BIKE_TYPE_OPTIONS} onChange={handleBikeTypeChange} />
+            <Dropdown label='Gears' value={gears} options={GEARS_OPTIONS} onChange={handleGearsFilterChange} />
+            <Dropdown label='Min Year' value={minYear} options={YEAR_OPTIONS} onChange={handleMinYearChange} />
+            <Dropdown label='Max Year' value={maxYear} options={YEAR_OPTIONS} onChange={handleMaxYearChange} />
+            <Dropdown label='Exact Year' value={exactYear} options={YEAR_OPTIONS} onChange={handleExactYearChange} />
+            <Dropdown label='Num Results' value={limit} options={NUM_RESULTS_OPTIONS} onChange={handleLimitChange} />
 
-          <Button onClick={handleApplyFilter}>Apply</Button>
-          <Button variant='outline' onClick={handleClearFilters}>
-            Reset
-          </Button>
-        </CardContent>
-      </Card>
+            <Button onClick={handleApplyFilter}>Apply</Button>
+            <Button variant='outline' onClick={handleClearFilters}>
+              Reset
+            </Button>
+          </CardContent>
+        </Card>
+
+        <SidebarNav />
+      </div>
       <div className='flex flex-col flex-1 w-full gap-4'>
         {status === "pending" && <ListSkeleton />}
 
@@ -156,9 +167,9 @@ export const Bikes = () => {
           (data.data.length === 0 ? (
             <ListEmpy />
           ) : (
-            data.data.map((car) => (
-              <Link key={car.id} to={`/cars/${car.id}`}>
-                <ListItem title={`${car.vehicle.year} ${car.vehicle.model}`} type='bike' />
+            data.data.map((bike) => (
+              <Link key={bike.id} to={`/bikes/${bike.id}`}>
+                <ListItem title={`${bike.vehicle.year} ${bike.vehicle.model}`} type='bike' />
               </Link>
             ))
           ))}
