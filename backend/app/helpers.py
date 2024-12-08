@@ -18,9 +18,9 @@ def apply_year_filter(query, year, year_gte, year_lte):
     """
     if year is not None:
         query = query.filter(models.Vehicle.year == year)
-    elif year_gte is not None:
+    if year_gte is not None:
         query = query.filter(models.Vehicle.year >= year_gte)
-    elif year_lte is not None:
+    if year_lte is not None:
         query = query.filter(models.Vehicle.year <= year_lte)
     return query
 
