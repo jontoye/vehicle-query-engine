@@ -103,7 +103,7 @@ cd backend
 python3 -m venv .venv
 
 # activate virtual environment (on mac/unix)
-.venv/bin/activate 
+source .venv/bin/activate
 
 # install deps
 pip install --upgrade pip && pip install -r requirements.txt 
@@ -112,7 +112,7 @@ pip install --upgrade pip && pip install -r requirements.txt
 cp .env.example .env 
 
 
-# DATABASE
+# DATABASE and start API
 
 cd backend
 
@@ -124,6 +124,8 @@ cd app
 # seed the db (you should already have your virtual env activated)
 python seeder.py 
 
+# Start the API
+uvicorn main:app --reload
 
 
 # FRONTEND
