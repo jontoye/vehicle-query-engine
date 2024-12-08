@@ -10,8 +10,8 @@ interface ListItemProps {
 export const ListItem = ({ title, type }: ListItemProps) => {
   const icon: Record<VehicleType, React.ReactNode> = {
     car: <Car size={40} />,
-    bike: <Rocket size={40} />,
-    spaceship: <Bike size={40} />,
+    spaceship: <Rocket size={40} />,
+    bike: <Bike size={40} />,
   };
 
   return (
