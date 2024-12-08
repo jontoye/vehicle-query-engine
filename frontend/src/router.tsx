@@ -4,6 +4,7 @@ import { Bikes } from "./pages/bikes";
 import { Cars } from "./pages/cars";
 import { Home } from "./pages/home";
 import { Spaceships } from "./pages/spaceships";
+import { ViewAll } from "./pages/view-all";
 
 const router = createBrowserRouter([
   {
@@ -16,7 +17,7 @@ const router = createBrowserRouter([
       },
       {
         path: "vehicles",
-        element: <div>VEHICLES</div>,
+        element: <ViewAll />
       },
       {
         path: "cars",

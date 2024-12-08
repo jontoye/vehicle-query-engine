@@ -4,7 +4,7 @@ from enums import BikeType, VehicleType
 
 
 class FilterParams(BaseModel):
-    limit: int = Field(10, gt=0, le=100)
+    limit: int = Field(10, gt=0, le=150)
     offset: int = Field(0, ge=0)
     sort_by: str = Field("id")
     sort_order: str = Field("asc", pattern="^(asc|desc)$")

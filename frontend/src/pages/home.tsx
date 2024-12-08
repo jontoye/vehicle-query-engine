@@ -1,12 +1,14 @@
+import { ArrowRight } from "lucide-react";
 import { useState } from "react";
-import { useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router";
+import { CategoryCard } from "../components/CategoryCard";
 import Dropdown from "../components/Dropdown";
 import { Alert, AlertDescription, AlertTitle } from "../components/ui/alert";
 import { Button } from "../components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "../components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../components/ui/tabs";
-import { VehicleType } from "../types";
 import { YEAR_OPTIONS } from "../lib/constants";
+import { VehicleType } from "../types";
 
 const vechileTypePathMap: Record<VehicleType, string> = {
   car: "cars",
@@ -90,15 +92,26 @@ export const Home = () => {
 
         <TabsContent value='explore'>
           <Card>
-            <CardHeader>
-              <CardTitle>Explore them all!</CardTitle>
-              <CardDescription>Unsure what to choose? Explore all your options here.</CardDescription>
+            <CardHeader className="flex-row items-end justify-between">
+              <div className=''>
+                <CardTitle>Explore them all!</CardTitle>
+                <CardDescription>Unsure what to choose? Explore all your options here.</CardDescription>
+              </div>
+              <Link to="/vehicles" className="flex items-center gap-1 hover:underline">
+                View all <ArrowRight size={16}/>
+              </Link>
             </CardHeader>
 
-            <CardContent className='space-y-2'>
-              <p>CARS</p>
-              <p>BIKES</p>
-              <p>SPACESHIPS</p>
+            <CardContent className='flex items-center justify-between gap-6'>
+              <Link to='/bikes' className='flex-1'>
+                <CategoryCard type='bike' />
+              </Link>
+              <Link to='/cars' className='flex-1'>
+                <CategoryCard type='car' />
+              </Link>
+              <Link to='/spaceships' className='flex-1'>
+                <CategoryCard type='spaceship' />
+              </Link>
             </CardContent>
           </Card>
         </TabsContent>

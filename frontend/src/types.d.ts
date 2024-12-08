@@ -37,6 +37,13 @@ interface VehicleBase {
   year: number;
 }
 
+interface Vehicle {
+  id: number;
+  model: string;
+  year: number;
+  vehicle_type: string;
+}
+
 interface Bike {
   id: string;
   brand: string;
