@@ -15,10 +15,10 @@ postgres-stop:
 	docker compose -f ./backend/docker-compose.yml down
 
 seed-db:
-	cd ./backend && . .venv/bin/activate && cd ./app && python seeder.py
+	cd ./backend && . .venv/bin/activate && python -m app.seeder
 
 api-start:
-	cd ./backend && . .venv/bin/activate && cd ./app && uvicorn main:app --reload
+	cd ./backend && . .venv/bin/activate && uvicorn app.main:app --reload
 
 web-start:
 	cd ./frontend && npm run dev

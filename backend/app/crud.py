@@ -1,13 +1,16 @@
-import models
-from enums import VehicleType
 from fastapi import HTTPException
-from helpers import (
+from sqlalchemy import asc, desc
+from sqlalchemy.orm import Query, Session, joinedload
+
+from . import models
+from .enums import VehicleType
+from .helpers import (
     apply_sort_order,
     apply_vehicle_type_filters,
     apply_year_filter,
     get_sort_column,
 )
-from schemas import (
+from .schemas import (
     BikeCreate,
     BikeFilters,
     CarCreate,
@@ -17,8 +20,6 @@ from schemas import (
     VehicleBase,
     VehicleCreate,
 )
-from sqlalchemy import asc, desc
-from sqlalchemy.orm import Query, Session, joinedload
 
 
 def get_vehicles(
@@ -55,10 +56,10 @@ def get_vehicle(db: Session, id: int):
     vehicle = db.get(models.Vehicle, id)
     if vehicle is None:
         raise HTTPException(status_code=404, detail="Vehicle not found")
-    
+
     # Add the related vehicle id to response
     vehicle.vehicle_type_id = vehicle.related_vehicle.id
-    
+
     return vehicle
 
 
@@ -170,7 +171,11 @@ def get_spaceship(db: Session, id: int):
 
 
 def get_spaceship_by_vehicle_id(db: Session, vehicle_id: int):
-    spaceship = db.query(models.Spaceship).filter(models.Spaceship.vehicle_id == vehicle_id).first()
+    spaceship = (
+        db.query(models.Spaceship)
+        .filter(models.Spaceship.vehicle_id == vehicle_id)
+        .first()
+    )
     if spaceship is None:
         raise HTTPException(status_code=404, detail="Spaceship not found")
     return spaceship

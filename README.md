@@ -119,13 +119,11 @@ cd backend
 # start a postgres server in a docker container
 docker compose up -d 
 
-cd app
-
 # seed the db (you should already have your virtual env activated)
-python seeder.py 
+python -m app.seeder
 
 # Start the API
-uvicorn main:app --reload
+uvicorn app.main:app --reload
 
 
 # FRONTEND

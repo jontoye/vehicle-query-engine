@@ -6,12 +6,13 @@ load_dotenv()
 
 from typing import List
 
-import crud
-import models
-from database import engine, get_db
 from fastapi import Depends, FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from schemas import (
+from sqlalchemy.orm import Session
+
+from . import crud, models
+from .database import engine, get_db
+from .schemas import (
     BikeFilters,
     BikeResponse,
     CarFilters,
@@ -21,7 +22,6 @@ from schemas import (
     SpaceshipResponse,
     VehicleResponse,
 )
-from sqlalchemy.orm import Session
 
 app = FastAPI()
 

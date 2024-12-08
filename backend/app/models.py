@@ -1,9 +1,10 @@
 from typing import List, Optional
 
-from database import Base
-from enums import BikeType, VehicleType
 from sqlalchemy import Enum, Float, ForeignKey, Integer, String
 from sqlalchemy.orm import Mapped, mapped_column, relationship
+
+from .database import Base
+from .enums import BikeType, VehicleType
 
 
 class Vehicle(Base):

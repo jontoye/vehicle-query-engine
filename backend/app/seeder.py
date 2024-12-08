@@ -1,15 +1,14 @@
 import json
-import os
 
 from dotenv import load_dotenv
 
 load_dotenv()
 
-import crud
-import schemas
-from enums import BikeType
-from database import SessionLocal
 from sqlalchemy.orm import Session
+
+from . import crud, schemas
+from .database import SessionLocal
+from .enums import BikeType
 
 
 def seed_data():
@@ -18,7 +17,7 @@ def seed_data():
 
     try:
         # Seed Bikes
-        with open("data/bikes.json") as f:
+        with open("app/data/bikes.json") as f:
             bikes = json.load(f)
             for bike in bikes:
                 bike_data = schemas.BikeCreate(
@@ -32,7 +31,7 @@ def seed_data():
                 crud.create_bike(db, bike_data)
 
         # Seed Cars
-        with open("data/cars.json") as f:
+        with open("app/data/cars.json") as f:
             cars = json.load(f)
             for car in cars:
                 car_data = schemas.CarCreate(
@@ -48,7 +47,7 @@ def seed_data():
                 crud.create_car(db, car_data)
 
         # Seed Spaceships
-        with open("data/spaceships.json") as f:
+        with open("app/data/spaceships.json") as f:
             spaceships = json.load(f)
             for spaceship in spaceships:
                 spaceship_data = schemas.SpaceshipCreate(

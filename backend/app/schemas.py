@@ -1,6 +1,8 @@
-from pydantic import BaseModel, Field, field_validator
 from typing import Optional
-from enums import BikeType, VehicleType
+
+from pydantic import BaseModel, Field, field_validator
+
+from .enums import BikeType, VehicleType
 
 
 class FilterParams(BaseModel):
