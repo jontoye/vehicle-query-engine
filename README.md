@@ -66,6 +66,8 @@ This will start the FastAPI server, available at `http://127.0.0.1:8000`.
 
 ### 6. Start the Frontend
 
+In a new terminal window of this project directory, now start the frontend:
+
 ```bash
 make web-start
 ```
@@ -87,6 +89,51 @@ To stop running services, use the following commands:
 - **API and Frontend**:
   Use `CTRL+C` to stop the backend or frontend processes.
 
+---
+
+## Having problems running any of the Makefile commands? Use these steps to get up and running:
+
+```bash
+
+# API Installation
+
+cd backend
+
+ # setup virtual environment (use python or python3 depending on your machine)
+python3 -m venv .venv
+
+# activate virtual environment (on mac/unix)
+.venv/bin/activate 
+
+# install deps
+pip install --upgrade pip && pip install -r requirements.txt 
+
+# copy env variables 
+cp .env.example .env 
+
+
+# DATABASE
+
+cd backend
+
+# start a postgres server in a docker container
+docker compose up -d 
+
+cd app
+
+# seed the db (you should already have your virtual env activated)
+python seeder.py 
+
+
+
+# FRONTEND
+
+cd frontend
+npm i
+npm run dev
+
+
+```
 ---
 
 Feel free to reach out if you have any questions or issues!

@@ -1,5 +1,7 @@
+PYTHON := $(shell command -v python3 || command -v python)
+
 install-backend:
-	cd backend && python -m venv .venv && . .venv/bin/activate && pip install --upgrade pip && pip install -r requirements.txt && cp .env.example .env
+	cd backend && $(PYTHON) -m venv .venv && . .venv/bin/activate && pip install --upgrade pip && pip install -r requirements.txt && cp .env.example .env
 
 install-frontend:
 	cd frontend && npm i
