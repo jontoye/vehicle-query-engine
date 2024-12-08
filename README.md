@@ -62,7 +62,7 @@ make seed-db
 make api-start
 ```
 
-This will start the FastAPI server, available at `http://127.0.0.1:8000`.
+This will start the FastAPI server, available at [`http://127.0.0.1:8000`](http://127.0.0.1:8000).
 
 ### 6. Start the Frontend
 
@@ -72,7 +72,7 @@ In a new terminal window of this project directory, now start the frontend:
 make web-start
 ```
 
-This will start the React frontend at `http://127.0.0.1:5173`.
+This will start the React frontend at [`http://127.0.0.1:5173`](http://127.0.0.1:5173).
 
 ---
 
