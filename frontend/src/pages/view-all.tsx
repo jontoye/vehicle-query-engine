@@ -4,6 +4,7 @@ import Dropdown from "../components/Dropdown";
 import { ListEmpy } from "../components/ListEmpy";
 import { ListItem } from "../components/ListItem";
 import { ListSkeleton } from "../components/ListSkeleton";
+import { SidebarNav } from "../components/SidebarNav";
 import { Button } from "../components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "../components/ui/card";
 import { useVehicles } from "../hooks/useVehicles";
@@ -103,22 +104,25 @@ export const ViewAll = () => {
 
   return (
     <div className='flex w-full gap-4'>
-      <Card className='sticky w-64 top-8 h-fit'>
-        <CardHeader>
-          <CardTitle>Filters</CardTitle>
-        </CardHeader>
-        <CardContent className='flex flex-col gap-4'>
-          <Dropdown label='Min Year' value={minYear} options={YEAR_OPTIONS} onChange={handleMinYearChange} />
-          <Dropdown label='Max Year' value={maxYear} options={YEAR_OPTIONS} onChange={handleMaxYearChange} />
-          <Dropdown label='Exact Year' value={exactYear} options={YEAR_OPTIONS} onChange={handleExactYearChange} />
-          <Dropdown label='Num Results' value={limit} options={NUM_RESULTS_OPTIONS} onChange={handleLimitChange} />
+      <div className='flex flex-col w-64 gap-2'>
+        <SidebarNav />
+        <Card className="sticky top-8">
+          <CardHeader>
+            <CardTitle>Filters</CardTitle>
+          </CardHeader>
+          <CardContent className='flex flex-col gap-4'>
+            <Dropdown label='Min Year' value={minYear} options={YEAR_OPTIONS} onChange={handleMinYearChange} />
+            <Dropdown label='Max Year' value={maxYear} options={YEAR_OPTIONS} onChange={handleMaxYearChange} />
+            <Dropdown label='Exact Year' value={exactYear} options={YEAR_OPTIONS} onChange={handleExactYearChange} />
+            <Dropdown label='Num Results' value={limit} options={NUM_RESULTS_OPTIONS} onChange={handleLimitChange} />
 
-          <Button onClick={handleApplyFilter}>Apply</Button>
-          <Button variant='outline' onClick={handleClearFilters}>
-            Reset
-          </Button>
-        </CardContent>
-      </Card>
+            <Button onClick={handleApplyFilter}>Apply</Button>
+            <Button variant='outline' onClick={handleClearFilters}>
+              Reset
+            </Button>
+          </CardContent>
+        </Card>
+      </div>
       <div className='flex flex-col flex-1 w-full gap-4'>
         {status === "pending" && <ListSkeleton />}
 

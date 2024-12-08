@@ -120,7 +120,8 @@ export const Cars = () => {
   return (
     <div className='flex w-full gap-4'>
       <div className='flex flex-col w-64 gap-2'>
-        <Card>
+        <SidebarNav />
+        <Card className='sticky top-8'>
           <CardHeader>
             <CardTitle>Filters</CardTitle>
           </CardHeader>
@@ -137,8 +138,6 @@ export const Cars = () => {
             </Button>
           </CardContent>
         </Card>
-
-        <SidebarNav />
       </div>
       <div className='flex flex-col flex-1 w-full gap-4'>
         {status === "pending" && <ListSkeleton />}
